@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Bitcoin Cash Defi Smart Contract To Bet On Price Of Anything Going Up Or Down Using AnyHedge.</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.dropotron.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		<script type="text/javascript" src="js/qrcode.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+
+		<script>
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const betType = urlParams.get('betType');
+		betTypeName = "";
+		priceGold = 1940;
+		priceSilver = 27.05;
+		priceSharesApple = 120.96;
+		priceSharesTesla = 418.32;
+		</script>
+
+	</head>
+	<body class="homepage">
+
+		<div class="wrapper style1">
+
+			<div id="header">
+				<div class="container">
+						
+					<!-- Logo -->
+						<h1><a href="#" id="logo">1BCH.com</a></h1>
+					
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li class="active"><a href="index.html">Home</a></li>
+								<li>
+									<a href="">Bets Open</a>
+									<ul>
+										<li><a href="index.html?betType=commodityGold">Gold Price</a></li>
+										<li><a href="index.html?betType=commoditySilver">Silver Price</a></li>
+										<li><a href="index.html?betType=sharesPriceApple">Apple Share Price</a></li>
+										<li><a href="index.html?betType=sharesPriceTesla">Tesla Share Price</a></li>
+										<li><a href="index.html?betType=eplLiverpoolvsLeeds">Liverpool vs Leeds</a></li>
+									</ul>
+								</li>
+							</ul>
+						</nav>
+
+				</div>
+			</div>
+			
+			<div id="banner">
+				<section class="container">
+					<h2>Bitcoin Cash Defi</h2>
+					<span>Using <a href='https://anyhedge.com/' target='_blank' style='text-decoration:none;color:#ffffff;'>AnyHedge</a> And <a href='https://gitlab.com/GeneralProtocols/priceoracle/library' target='_blank' style='text-decoration:none;color:#ffffff;'>Price Oracle</a></span>
+					<p>Eric is a degenerate gambler.</p>
+				</section>
+			</div>
+
+		</div>
+
+		<div class="wrapper style2">
+			<section class="container">
+				<div class="row double">
+					<div class="6u">
+						<h3>The Idea</h3>
+						<p>
+							The idea is to allow anyone to bet on the price of anything going up or down using Defi on Bitcoin Cash. This can be achieved using <a href='https://anyhedge.com/' target='_blank'>AnyHedge</a> and the <a href='https://gitlab.com/GeneralProtocols/priceoracle/library' target='_blank'>Price Oracle</a>. It also uses <a href='https://rest.bitcoin.com/' target='_blank'>Bitcoin.com REST APIs</a>. Both AnyHedge and the Oracle are open source.<br /><br />
+							Depending on which side wins the bet, the Oracle will sign and publish a price message for AnyHedge to liquidate the contract in a deliberate way such that winning side of the contract wins the full amount (minus the commission fees). The winnings will be sent to the same wallet address from which the bet funds came from. Therefore, user accounts are not even required.<br /><br />
+							Given that I don't have sufficient time to complete this project for the <a href='https://devcon.cash/' target='_blank'>Bitcoin Cash DevCon III</a>, I find that it would make more sense to explain how it would work rather than try to code a complete demo. Hopefully, this will encourage more developers to start building Defi projects on Bitcoin Cash using AnyHedge and the Oracle. I am sure there are much more creative and capable developers out there than I am.
+						</p>
+					</div>
+					<div class="6u">
+						<h3>Additional Thoughts</h3>
+						<p>
+							This is an over-simplistic example of using AnyHedge + Oracle to create a Defi contract on Bitcoin Cash. There are many issues which need to be considered such as, what happens if there is a lack of liquidity?<br /><br />
+							The probability of something going up or down is usually not the same. Therefore, the rates may need to be adjusted accordingly.<br /><br />
+							The rate of price changes (volatility) differ between different types of bets. Therefore, parameters such as the liquidation date may need to factor these into account.<br /><br />
+							The opening and closing time of bets will need to be adjusted to avoid cheating.<br /><br />
+							These issues are beyond the scope of this hackathon project. Feel free to take everything and build your own Bitcoin Cash Defi projects with AnyHedge.
+						</p>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<div class="wrapper style5" id='divBetSection'>
+			<section id="team" class="container">
+				<header class="major">
+					<h2 id='divBetTitle'></h2>
+					<span class="byline"><font color='#ff0000'>Do not send more than 10 cents worth of Bitcoin Cash.<br />I keep all money regardless of the outcome.</font></span><br />
+					<h3 id='divSmartContract'></h3>
+				</header>
+				<div class="row">
+					<div class="6u">
+						<center><div id="qrcodeUp"></div></center>
+						<h3 id='divPriceUpHeader'></h3>
+						<p id='divPriceUpDescription'></p>
+					</div>
+					<div class="6u">
+						<center><div id="qrcodeDown"></div></center>
+						<h3 id='divPriceDownHeader'></h3>
+						<p id='divPriceDownDescription'></p>
+					</div>
+				</div>
+			</section>
+		</div>
+
+<script>
+if (betType === 'commodityGold') {
+	document.getElementById('divBetSection').style.display = "";
+	document.getElementById('divBetTitle').innerText = 'Gold Price Per Ounce: $' +priceGold;
+	document.getElementById('divPriceUpHeader').innerText = 'Gold Price Go Up';
+	document.getElementById('divPriceDownHeader').innerText = 'Gold Price Go Down';
+	document.getElementById('divPriceUpDescription').innerText = 'You win if Gold Price Per Ounce goes above $' +priceGold+ ' at 1st Oct 2020 2pm GMT.';
+	document.getElementById('divPriceDownDescription').innerText = 'You win if Gold Price Per Ounce goes below $' +priceGold+ ' at 1st Oct 2020 2pm GMT.';
+	new QRCode(document.getElementById("qrcodeUp"), "bitcoincash:qqfny4fzzk73plch28qsk5fa4punrrn2qcrc75976j?amount=0.0005");
+	new QRCode(document.getElementById("qrcodeDown"), "bitcoincash:qzrsjdjafzh90fvp5te8urzy0uae5xmawuysuu8qfw?amount=0.0005");
+	setTimeout(httpGet(betType), 15000);
+} else if (betType === 'commoditySilver') {
+	document.getElementById('divBetSection').style.display = "";
+	document.getElementById('divBetTitle').innerText = 'Silver Price Per Ounce: $' +priceSilver;
+	document.getElementById('divPriceUpHeader').innerText = 'Silver Price Go Up';
+	document.getElementById('divPriceDownHeader').innerText = 'Silver Price Go Down';
+	document.getElementById('divPriceUpDescription').innerText = 'You win if Silver Price Per Ounce goes above $' +priceSilver+ ' at 1st Oct 2020 2pm GMT.';
+	document.getElementById('divPriceDownDescription').innerText = 'You win if Silver Price Per Ounce goes below $' +priceSilver+ ' at 1st Oct 2020 2pm GMT.';
+	new QRCode(document.getElementById("qrcodeUp"), "bitcoincash:qq7ek3jvwxl0zk677fgj6epnweverg9qyqdujlpfwu?amount=0.0005");
+	new QRCode(document.getElementById("qrcodeDown"), "bitcoincash:qzwndtvmnmq0t3tg7qfvx2alkvan47xykvtpkqra4p?amount=0.0005");
+	setTimeout(httpGet(betType), 15000);
+} else if (betType === 'sharesPriceApple') {
+	document.getElementById('divBetSection').style.display = "";
+	document.getElementById('divBetTitle').innerText = 'Apple Shares Price: $' +priceSharesApple;
+	document.getElementById('divPriceUpHeader').innerText = 'Apple Shares Price Go Up';
+	document.getElementById('divPriceDownHeader').innerText = 'Apple Shares Price Go Down';
+	document.getElementById('divPriceUpDescription').innerText = 'You win if Apple Shares Price goes above $' +priceSharesApple+ ' at 1st Oct 2020 2pm GMT.';
+	document.getElementById('divPriceDownDescription').innerText = 'You win if Apple Shares Price goes below $' +priceSharesApple+ ' at 1st Oct 2020 2pm GMT.';
+	new QRCode(document.getElementById("qrcodeUp"), "bitcoincash:qpw3rcwcuay09d9w5ruej3tlkv307t62cu908jsufj?amount=0.0005");
+	new QRCode(document.getElementById("qrcodeDown"), "bitcoincash:qz5arcve5wkpuqzytmxd225vzynhrl6hwsqjhtrdl8?amount=0.0005");
+	setTimeout(httpGet(betType), 15000);
+} else if (betType === 'sharesPriceTesla') {
+	document.getElementById('divBetSection').style.display = "";
+	document.getElementById('divBetTitle').innerText = 'Tesla Shares Price: $' +priceSharesTesla;
+	document.getElementById('divPriceUpHeader').innerText = 'Tesla Shares Price Go Up';
+	document.getElementById('divPriceDownHeader').innerText = 'Tesla Shares Price Go Down';
+	document.getElementById('divPriceUpDescription').innerText = 'You win if Tesla Shares Price goes above $' +priceSharesTesla+ ' at 1st Oct 2020 2pm GMT.';
+	document.getElementById('divPriceDownDescription').innerText = 'You win if Tesla Shares Price goes below $' +priceSharesTesla+ ' at 1st Oct 2020 2pm GMT.';
+	new QRCode(document.getElementById("qrcodeUp"), "bitcoincash:qrqdkzf5ulwk4ergjt8xhhjwea28q6e4pskar99582?amount=0.0005");
+	new QRCode(document.getElementById("qrcodeDown"), "bitcoincash:qzk2yjgmyfxm7s3fuffw50qx0lgh5ke2vct65ay6jr?amount=0.0005");
+	setTimeout(httpGet(betType), 15000);
+} else if (betType === 'eplLiverpoolvsLeeds') {
+	document.getElementById('divBetSection').style.display = "";
+	document.getElementById('divBetTitle').innerText = 'Liverpool vs Leeds United';
+	document.getElementById('divPriceUpHeader').innerText = 'Liverpool To Win';
+	document.getElementById('divPriceDownHeader').innerText = 'Leeds United To Win';
+	document.getElementById('divPriceUpDescription').innerText = 'You win if Liverpool wins the match (13th Sept 2020).';
+	document.getElementById('divPriceDownDescription').innerText = 'You win if Leeds United wins the match (13th Sept 2020).';
+	new QRCode(document.getElementById("qrcodeUp"), "bitcoincash:qzum5wtkjnwxzmm9y0yngaua5kc4ulrwqgmrles5p9?amount=0.0005");
+	new QRCode(document.getElementById("qrcodeDown"), "bitcoincash:qqnxwqmr0ucxrxsz68vm7vmexvnzuued2ywwzjx2ku?amount=0.0005");
+	setTimeout(httpGet(betType), 15000);
+}  else {
+	document.getElementById('divBetSection').style.display = "none";
+}
+
+function httpGet(betType)
+{
+	if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	} else {// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	xmlhttp.onreadystatechange=function() {
+		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+			tempResponse = xmlhttp.responseText;
+			tempCount = (tempResponse.match(/"utxos":\[\]/g) || []).length;
+			if (tempCount < 2) {
+				if (betType === 'commodityGold') {
+					document.getElementById('divSmartContract').innerHTML = "Contract created at <a href='https://explorer.bitcoin.com/bch/tx/df4aa26e760ef72a2d0a5eb21cc53af94344f357ed094ab04389702f4153b036' target='_blank'>https://explorer.bitcoin.com/bch/tx/df4aa26e760ef72a2d0a5eb21cc53af94344f357ed094ab04389702f4153b036</a>";
+				} else if (betType === 'commoditySilver') {
+					document.getElementById('divSmartContract').innerHTML = "Contract created at <a href='https://explorer.bitcoin.com/bch/tx/b4b1ba3f271d03861570b12c85c513e62808bfccda694f230dc051c9d153e652' target='_blank'>https://explorer.bitcoin.com/bch/tx/b4b1ba3f271d03861570b12c85c513e62808bfccda694f230dc051c9d153e652</a>";
+				} else if (betType === 'sharesPriceApple') {
+					document.getElementById('divSmartContract').innerHTML = "Contract created at <a href='https://explorer.bitcoin.com/bch/tx/1412e7109451f9e896bd23b91a0736d44b84dbd3dbb8a8b576344375d5b74c49' target='_blank'>https://explorer.bitcoin.com/bch/tx/1412e7109451f9e896bd23b91a0736d44b84dbd3dbb8a8b576344375d5b74c49</a>";
+				} else if (betType === 'sharesPriceTesla') {
+					document.getElementById('divSmartContract').innerHTML = "Contract created at <a href='https://explorer.bitcoin.com/bch/tx/09467015f959435bb6c4994e79526cf815f06547fca3d0fc6d2bb057413ce1a6' target='_blank'>https://explorer.bitcoin.com/bch/tx/09467015f959435bb6c4994e79526cf815f06547fca3d0fc6d2bb057413ce1a6</a>";
+				} else if (betType === 'eplLiverpoolvsLeeds') {
+					document.getElementById('divSmartContract').innerHTML = "Contract created at <a href='https://explorer.bitcoin.com/bch/tx/ad0a6ab771127347278cf3779f54116f6980dff9298e21d072e0cef406d1e693' target='_blank'>https://explorer.bitcoin.com/bch/tx/ad0a6ab771127347278cf3779f54116f6980dff9298e21d072e0cef406d1e693</a>";
+				}
+			} else {
+				setTimeout(httpGet(betType), 15000);
+			}
+		}
+	}
+	if (betType === 'commodityGold') {
+		xmlhttp.open("POST", "https://rest.bitcoin.com/v2/address/unconfirmed", true);
+		xmlhttp.setRequestHeader("accept", "application/json");
+		xmlhttp.setRequestHeader("Content-Type", "application/json");
+		xmlhttp.send("{\"addresses\":[\"bitcoincash:qqfny4fzzk73plch28qsk5fa4punrrn2qcrc75976j\",\"bitcoincash:qzrsjdjafzh90fvp5te8urzy0uae5xmawuysuu8qfw\"]}");
+	} else if (betType === 'commoditySilver') {
+		xmlhttp.open("POST", "https://rest.bitcoin.com/v2/address/unconfirmed", true);
+		xmlhttp.setRequestHeader("accept", "application/json");
+		xmlhttp.setRequestHeader("Content-Type", "application/json");
+		xmlhttp.send("{\"addresses\":[\"bitcoincash:qq7ek3jvwxl0zk677fgj6epnweverg9qyqdujlpfwu\",\"bitcoincash:qzwndtvmnmq0t3tg7qfvx2alkvan47xykvtpkqra4p\"]}");
+	} else if (betType === 'sharesPriceApple') {
+		xmlhttp.open("POST", "https://rest.bitcoin.com/v2/address/unconfirmed", true);
+		xmlhttp.setRequestHeader("accept", "application/json");
+		xmlhttp.setRequestHeader("Content-Type", "application/json");
+		xmlhttp.send("{\"addresses\":[\"bitcoincash:qpw3rcwcuay09d9w5ruej3tlkv307t62cu908jsufj\",\"bitcoincash:qz5arcve5wkpuqzytmxd225vzynhrl6hwsqjhtrdl8\"]}");
+	} else if (betType === 'sharesPriceTesla') {
+		xmlhttp.open("POST", "https://rest.bitcoin.com/v2/address/unconfirmed", true);
+		xmlhttp.setRequestHeader("accept", "application/json");
+		xmlhttp.setRequestHeader("Content-Type", "application/json");
+		xmlhttp.send("{\"addresses\":[\"bitcoincash:qrqdkzf5ulwk4ergjt8xhhjwea28q6e4pskar99582\",\"bitcoincash:qzk2yjgmyfxm7s3fuffw50qx0lgh5ke2vct65ay6jr\"]}");
+	} else if (betType === 'eplLiverpoolvsLeeds') {
+		xmlhttp.open("POST", "https://rest.bitcoin.com/v2/address/unconfirmed", true);
+		xmlhttp.setRequestHeader("accept", "application/json");
+		xmlhttp.setRequestHeader("Content-Type", "application/json");
+		xmlhttp.send("{\"addresses\":[\"bitcoincash:qzum5wtkjnwxzmm9y0yngaua5kc4ulrwqgmrles5p9\",\"bitcoincash:qqnxwqmr0ucxrxsz68vm7vmexvnzuued2ywwzjx2ku\"]}");
+	}
+}
+</script>
+
+		<div id="footer">
+			<section class="container">
+				<header class="major">
+					<h2>Connect with Eric</h2>
+					<span class="byline">He likes to joke but not everyone finds it funny.</span>
+				</header>
+				<ul class="icons">
+					<li class="active"><a href="https://imgflip.com/i/4e0izn" class="fa fa-facebook" target="_blank"><span>Facebook</span></a></li>
+					<li><a href="https://imgflip.com/i/4e0ikk" class="fa fa-twitter" target="_blank"><span>Twitter</span></a></li>
+					<li><a href="https://imgflip.com/i/4e0iwz" class="fa fa-pinterest" target="_blank"><span>Pinterest</span></a></li>
+					<li><a href="https://imgflip.com/i/4e0jij" class="fa fa-google-plus" target="_blank"><span>Google+</span></a></li>
+				</ul>
+				<hr />
+			</section>
+		</div>
+
+	</body>
+</html>
